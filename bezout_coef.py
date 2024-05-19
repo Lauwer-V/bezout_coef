@@ -44,7 +44,6 @@ def bezout_coefficients(a, b):
         return a_coeff, b_coeff
 
     # Calculer le PGCD et les coefficients de Bézout intermédiaires
-    global coefficients
     coefficients = pgcd_bezout(a, b)
     # Récupérer le PGCD
     gcd = min(coefficients.keys())
