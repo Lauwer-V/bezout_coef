@@ -16,13 +16,7 @@ def pgcd_bezout(a, b, coefficients={}):
         coefficients[a % b] = [(a, 1), (b, -get_coeff(a, b, a % b))]
         # Appel récursif de la fonction pgcd_bezout avec les nouveaux arguments b et a % b
         return pgcd_bezout(b, a % b, coefficients)
-
-def GCD(a,b):
-    if a%b == 0:
-        return b
-    else:
-        return GCD(b,a%b)
-
+        
 # Fonction pour calculer les coefficients de Bézout de deux nombres
 def bezout_coefficients(a, b):
     # Fonction auxiliaire pour vérifier si l'égalité de Bézout contient des éléments autres que a et b
@@ -72,7 +66,7 @@ def bezout_coefficients(a, b):
         # Calculer et renvoyer les coefficients de Bézout
         return sum_coeff(s)
     else:
-        gcd = GCD(a,b)
+        gcd = min(a,b)
         if a >= b:
             retour =  (0,1)
             print(f"L'égalité de Bezout : {a} ⨯ {retour[0]} + {b} ⨯ {retour[1]} = {gcd}")
