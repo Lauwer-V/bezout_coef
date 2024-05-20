@@ -51,6 +51,8 @@ def bezout_coefficients(a, b):
         return a_coeff, b_coeff
 
     # Calculer le PGCD et les coefficients de Bézout intermédiaires
+
+    #Cas ou a ne divise pas b
     if a%b != 0:
         coefficients = pgcd_bezout(a, b)
 
@@ -71,6 +73,7 @@ def bezout_coefficients(a, b):
 
         # Calculer et renvoyer les coefficients de Bézout
         return sum_coeff(s)
+    #Cas ou a divise b
     else:
         gcd = min(a,b)
         if a >= b:
