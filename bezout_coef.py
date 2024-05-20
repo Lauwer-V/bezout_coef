@@ -1,20 +1,27 @@
+# Fonction pour calculer le coefficient k tel que a = b*k + r
+def get_coeff(a, b, r):
+    k = 0
+    while a != (b * k + r):
+        k += 1
+    return k
+
 # Fonction pour calculer le PGCD de deux nombres et les coefficients de Bézout intermédiaires
 def pgcd_bezout(a, b, coefficients={}):
-    # Fonction auxiliaire pour calculer le coefficient k tel que a = b*k + r
-    def get_coeff(a, b, r):
-        k = 0
-        while a != (b * k + r):
-            k += 1
-        return k
 
     # Si a est divisible par b, renvoyer le dictionnaire des coefficients de Bézout
-    if a % b == 0:
+    if b == 0:
         return coefficients
     else:
         # Mettre à jour le dictionnaire des coefficients de Bézout
         coefficients[a % b] = [(a, 1), (b, -get_coeff(a, b, a % b))]
         # Appel récursif de la fonction pgcd_bezout avec les nouveaux arguments b et a % b
         return pgcd_bezout(b, a % b, coefficients)
+
+def GCD(a,b):
+    if a%b == 0:
+        return b
+    else:
+        return GCD(b,a%b)
 
 # Fonction pour calculer les coefficients de Bézout de deux nombres
 def bezout_coefficients(a, b):
@@ -44,20 +51,32 @@ def bezout_coefficients(a, b):
         return a_coeff, b_coeff
 
     # Calculer le PGCD et les coefficients de Bézout intermédiaires
-    coefficients = pgcd_bezout(a, b)
-    # Récupérer le PGCD
-    gcd = min(coefficients.keys())
-    # Initialiser la liste des coefficients de Bézout
-    s = [(gcd, 1)]
+    if a%b != 0:
+        coefficients = pgcd_bezout(a, b)
 
-    # Tant que l'égalité de Bézout contient des éléments autres que a et b
-    while has_other_elt(a, b, s):
-        for i in range(len(s)):
-            if s[i][0] not in (a, b) and s[i][0] in coefficients:
-                add_coeff = mult_coeff(s[i])
-                s.pop(i)
-                s.append(add_coeff[0])
-                s.append(add_coeff[1])
+        print(coefficients)
+        # Récupérer le PGCD
+        gcd = min(coefficients.keys())
+        # Initialiser la liste des coefficients de Bézout
+        s = [(gcd, 1)]
 
-    # Calculer et renvoyer les coefficients de Bézout
-    return sum_coeff(s)
+        # Tant que l'égalité de Bézout contient des éléments autres que a et b
+        while has_other_elt(a, b, s):
+            for i in range(len(s)):
+                if s[i][0] not in (a, b) and s[i][0] in coefficients:
+                    add_coeff = mult_coeff(s[i])
+                    s.pop(i)
+                    s.append(add_coeff[0])
+                    s.append(add_coeff[1])
+
+        # Calculer et renvoyer les coefficients de Bézout
+        return sum_coeff(s)
+    else:
+        gcd = min(a,b)
+        if a >= b:
+            retour =  (0,1)
+            print(f"L'égalité de Bezout : {a} ⨯ {retour[0]} + {b} ⨯ {retour[1]} = {gcd}")
+        else:
+            retour = (1,0)
+            print(f"L'égalité de Bezout : {a} ⨯ {retour[1]} + {b} ⨯ {retour[0]} = {gcd}")
+        return retour
