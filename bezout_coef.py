@@ -9,7 +9,7 @@ def get_coeff(a, b, r):
 def pgcd_bezout(a, b, coefficients={}):
 
     # Si a est divisible par b, renvoyer le dictionnaire des coefficients de Bézout
-    if b == 0:
+    if a%b == 0:
         return coefficients
     else:
         # Mettre à jour le dictionnaire des coefficients de Bézout
@@ -51,8 +51,6 @@ def bezout_coefficients(a, b):
         return a_coeff, b_coeff
 
     # Calculer le PGCD et les coefficients de Bézout intermédiaires
-
-    #Cas ou a ne divise pas b
     if a%b != 0:
         coefficients = pgcd_bezout(a, b)
 
@@ -73,9 +71,8 @@ def bezout_coefficients(a, b):
 
         # Calculer et renvoyer les coefficients de Bézout
         return sum_coeff(s)
-    #Cas ou a divise b
     else:
-        gcd = min(a,b)
+        gcd = GCD(a,b)
         if a >= b:
             retour =  (0,1)
             print(f"L'égalité de Bezout : {a} ⨯ {retour[0]} + {b} ⨯ {retour[1]} = {gcd}")
